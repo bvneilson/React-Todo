@@ -26,13 +26,11 @@ class App extends React.Component {
   }
 
   handleFormChange = event => {
-    this.setState(
-      {
+    this.setState({
         todo: {
           task: event.target.value,
           id: Date.now(),
-          completed: false
-        }
+          completed: false}
       }
     )
   }
@@ -43,13 +41,33 @@ class App extends React.Component {
     }
     this.setState({todos: [...this.state.todos, this.state.todo], todo: ''})
   }
+  clearCompleted = event => {
+    event.preventDefault();
+    const filtered = this.state.todos.filter(todo => todo.completed === false);
+    this.setState({todos: filtered})
+  }
+  toggleComplete = event => {
+    const updated = this.state.todos.map(todo =>
+      todo.id === Number(event.target.id)
+        ? { ...todo, completed: !todo.completed ? true : false }
+        : todo
+    );
+    this.setState({todos: updated})
+    // console.log('Clicked item id: ' + event.target.id)
+    // console.log(this.state.todos);
+  }
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm todo={this.state.todo} handleChange={this.handleFormChange} handleSubmit={this.handleTodoSubmit} />
-        <TodoList todos={this.state.todos} />
+        <TodoForm
+        todo={this.state.todo}
+        clearCompleted={this.clearCompleted}
+        handleChange={this.handleFormChange}
+        handleSubmit={this.handleTodoSubmit}
+        />
+        <TodoList todos={this.state.todos} toggleComplete={this.toggleComplete} />
       </div>
     );
   }

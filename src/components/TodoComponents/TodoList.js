@@ -5,7 +5,7 @@ const TodoList = props => {
   return (
     props.todos.map(todo => {
       return (
-        <Todo todo={todo} key={todo.id} />
+        <Todo todo={todo} key={todo.id} onClick={props.toggleComplete} />
       )
     })
   )
