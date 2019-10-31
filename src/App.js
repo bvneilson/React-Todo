@@ -41,15 +41,14 @@ class App extends React.Component {
     if (!this.state.todo) {
       return;
     }
-    this.setState({todos: [...this.state.todos, this.state.todo]})
-    this.setState({todo: ''})
+    this.setState({todos: [...this.state.todos, this.state.todo], todo: ''})
   }
 
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
-        <TodoForm handleChange={this.handleFormChange} handleSubmit={this.handleTodoSubmit} />
+        <TodoForm todo={this.state.todo} handleChange={this.handleFormChange} handleSubmit={this.handleTodoSubmit} />
         <TodoList todos={this.state.todos} />
       </div>
     );
